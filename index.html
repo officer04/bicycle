@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аренда электровелосипедов для курьеров в Красноярске</title>
+    <style>
+        /* Базовые настройки */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #00D285; /* Мятно-зеленый */
+            --primary-hover: #00b873;
+            --dark: #1A1A1A;
+            --gray: #F4F5F7;
+            --text-main: #333333;
+            --text-muted: #777777;
+        }
+
+        body {
+            background-color: #FAFAFA;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-dark {
+            background-color: var(--dark);
+        }
+        
+        .btn-dark:hover {
+            background-color: #000;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--dark);
+            color: white;
+        }
+
+        /* Шапка */
+        header {
+            padding: 20px 0;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .address {
+            color: var(--text-muted);
+        }
+
+        /* Первый экран (Hero) */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf7 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--dark);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .hero-image img {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+        }
+
+        /* Преимущества (4 карточки) */
+        .features {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--gray);
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ========================================= */
+        /* НОВЫЙ БЛОК: ДЕТАЛИ MINAKO TITAN 2.0 */
+        /* ========================================= */
+        .product-details {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .product-top {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        /* Декоративные линии/круги (как на скрине) */
+        .product-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: 350px;
+            border: 2px solid rgba(0, 210, 133, 0.3);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .product-image-wrapper img {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.2));
+        }
+
+        .product-info h2 {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            font-size: 32px;
+            font-weight: 800;
+            padding: 10px 30px;
+            border-radius: 40px;
+            margin-bottom: 15px;
+        }
+
+        .product-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .specs-list {
+            margin-bottom: 30px;
+        }
+
+        .spec-item {
+            margin-bottom: 15px;
+        }
+
+        .spec-value {
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--dark);
+            line-height: 1;
+        }
+
+        .spec-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .product-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Три карточки внизу */
+        .product-features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .p-feature-card {
+            background: var(--gray);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .p-feature-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #e5e7eb;
+        }
+
+        .p-feature-content {
+            padding: 25px;
+        }
+
+        .p-feature-content h4 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            color: var(--dark);
+        }
+
+        .p-feature-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Тарифы */
+        .pricing {
+            padding: 80px 0;
+            background-color: var(--gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+        }
+
+        .price-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 210, 133, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .price-card.popular {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 210, 133, 0.15);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .price-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .price span {
+            font-size: 16px;
+            font-weight: normal;
+            color: var(--text-muted);
+        }
+
+        .price-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .deposit-note {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 16px;
+            color: #856404;
+            background: #FFF3CD;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            border: 1px solid #ffeeba;
+        }
+
+        /* Как начать работать */
+        .how-it-works {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-num {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px auto;
+        }
+
+        .step h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Подвал */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-text {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* Адаптив для мобильных */
+        @media (max-width: 992px) {
+            .product-top { grid-template-columns: 1fr; text-align: center; }
+            .product-image-wrapper { margin-bottom: 30px; }
+            .product-buttons { justify-content: center; }
+            .product-features-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .header-info .address { display: none; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 32px; }
+            .hero-image::before { width: 250px; height: 250px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .product-image-wrapper::before { width: 250px; height: 250px; }
+        }
+
+        /* ========================================= */
+        /* СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА */
+        /* ========================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 460px;
+            border-radius: 20px;
+            padding: 35px 30px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f3f4f6;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #e5e7eb;
+            color: #111827;
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+            background: #f9fafb;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checkbox-group label {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .checkbox-group a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            border-radius: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .success-message .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .success-message h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .success-message p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content { padding: 25px 20px; margin: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">COURIER<span>BIKE</span></div>
+            <div class="header-info">
+                <div class="address">📍 г. Красноярск, ул. Маерчака 44 ст 6</div>
+                <button class="btn btn-dark open-modal-btn">Забронировать</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Первый экран -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div>
+                <h1>Аренда мощных электровелосипедов для курьеров</h1>
+                <p>Готовый транспорт для работы в Яндекс.Еде и Купере. Собственная ремонтная база. Без ежедневного возврата.</p>
+                <a href="#pricing" class="btn">Выбрать тариф</a>
+            </div>
+            <div class="hero-image">
+                <!-- Вставьте ссылку на ваше фото главного экрана -->
+                <img src="https://via.placeholder.com/500x400/transparent/333333?text=ФОТО+MINAKO+TITAN+2.0" alt="Minako Titan 2.0">
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества (4 карточки) -->
+    <section class="features">
+        <div class="container features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>Свой сервис и ремонт</h3>
+                <p>На базе «Шинопоиск». Диагностика, ремонт электрики и тормозов включены.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏱</div>
+                <h3>Без ежедневного возврата</h3>
+                <p>Забрал велосипед и работаешь весь срок аренды (7 или 28 дней).</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡</div>
+                <h3>Безопасность</h3>
+                <p>Каждый велосипед и АКБ с GPS-трекером, QR-маркировкой и учетом.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔋</div>
+                <h3>Контроль батарей</h3>
+                <p>Проверяем фактическую ёмкость и износ аккумуляторов перед выдачей.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- НОВЫЙ БЛОК: ДЕТАЛИ MINAKO TITAN 2.0 -->
+    <!-- ========================================= -->
+    <section class="product-details">
+        <div class="container">
+            <div class="product-top">
+                <!-- Изображение велосипеда слева -->
+                <div class="product-image-wrapper">
+                    <!-- Вставьте ссылку на фото велосипеда сбоку (без фона) -->
+                    <img src="https://via.placeholder.com/500x400/transparent/333333?text=ФОТО+ВЕЛОСИПЕДА+СБОКУ" alt="Minako Titan 2.0 Side View">
+                </div>
+                
+                <!-- Характеристики справа -->
+                <div class="product-info">
+                    <h2>Minako Titan 2.0</h2>
+                    <p class="product-subtitle">Minako Titan 2.0. Успейте забронировать!</p>
+                    
+                    <div class="specs-list">
+                        <div class="spec-item">
+                            <div class="spec-value">ДО 100 КМ</div>
+                            <div class="spec-label">без подзарядки</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">ДО 150 КГ</div>
+                            <div class="spec-label">нагрузка</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-value">1 АКБ X 30А/Ч</div>
+                            <div class="spec-label">в комплекте</div>
+                        </div>
+                    </div>
+
+                    <div class="product-buttons">
+                        <!-- Кнопка также вызывает модальное окно -->
+                        <button class="btn btn-dark open-modal-btn">Забронировать</button>
+                        <a href="#" class="btn btn-outline">Все характеристики</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 карточки с деталями внизу -->
+            <div class="product-features-grid">
+                <!-- Карточка 1 -->
+                <div class="p-feature-card">
+                    <!-- Вставьте ссылку на фото аккумулятора -->
+                    <img src="https://via.placeholder.com/400x200/e5e7eb/777777?text=ФОТО+АККУМУЛЯТОРА" alt="Аккумулятор" class="p-feature-img">
+                    <div class="p-feature-content">
+                        <h4>Емкий аккумулятор</h4>
+                        <p>С пробегом до 100 км обеспечивает работу целую смену без подзарядки, защищён от коротких замыканий.</p>
+                    </div>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="p-feature-card">
+                    <!-- Вставьте ссылку на фото тормозов/колеса -->
+                    <img src="https://via.placeholder.com/400x200/e5e7eb/777777?text=ФОТО+ТОРМОЗОВ" alt="Тормоза" class="p-feature-img">
+                    <div class="p-feature-content">
+                        <h4>Усиленные дисковые тормоза</h4>
+                        <p>Со спечёнными колодками дают надёжное торможение в дождь. Реже требуют обслуживания, обеспечивают безопасность при нагрузке.</p>
+                    </div>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="p-feature-card">
+                    <!-- Вставьте ссылку на фото амортизатора -->
+                    <img src="https://via.placeholder.com/400x200/e5e7eb/777777?text=ФОТО+АМОРТИЗАЦИИ" alt="Амортизация" class="p-feature-img">
+                    <div class="p-feature-content">
+                        <h4>Амортизация</h4>
+                        <p>Обеспечивает мягкую езду и защиту спины на кочках во время длинных смен.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Тарифы -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Выбери удобный тариф</h2>
+            <div class="pricing-grid">
+                
+                <div class="price-card">
+                    <h3>Пробная неделя</h3>
+                    <div class="price">3 500 ₽ <span>/ 7 дней</span></div>
+                    <div class="price-desc">Отличный вариант для теста или подработки</div>
+                    <button class="btn open-modal-btn" style="width: 100%;">Забронировать</button>
+                </div>
+
+                <div class="price-card popular">
+                    <div class="badge">Выгодно</div>
+                    <h3>Полный месяц</h3>
+                    <div class="price">12 800 ₽ <span>/ 28 дней</span></div>
+                    <div class="price-desc">Оптимально для тех, кто работает на постоянной основе</div>
+                    <button class="btn open-modal-btn" style="width: 100%;">Забронировать</button>
+                </div>
+
+            </div>
+            
+            <div class="deposit-note">
+                <strong>Обеспечительный платёж:</strong> 10 000 ₽ (возвращается при сдаче велосипеда в сохранности).
+            </div>
+        </div>
+    </section>
+
+    <!-- Как начать работать -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Как начать работать</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h4>Заявка</h4>
+                    <p>Оставьте заявку на сайте или напишите в мессенджеры</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h4>Договор</h4>
+                    <p>Приезжайте к нам с паспортом для заключения договора</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h4>Оплата</h4>
+                    <p>Внесите оплату за тариф и обеспечительный платеж</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <h4>Старт</h4>
+                    <p>Забирайте велосипед по адресу Маерчака 44 ст 6 и выходите на линию</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">COURIER<span>BIKE</span></div>
+                    <p class="footer-text">Сервис аренды электровелосипедов для курьеров.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Контакты</h4>
+                    <a href="tel:+79000000000">+7 (XXX) XXX-XX-XX</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">WhatsApp</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Адрес</h4>
+                    <p class="footer-text">г. Красноярск,<br>ул. Маерчака 44 ст 6</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 CourierBike. Все права защищены. <br>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================= -->
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <!-- ========================================= -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            
+            <div id="formContainer">
+                <h2 class="modal-title">Забронировать велосипед</h2>
+                <p class="modal-subtitle">Оставьте свои контакты, и мы свяжемся с вами для уточнения деталей.</p>
+                
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" class="form-control" placeholder="Иван" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacy" required>
+                        <label for="privacy">
+                            Я даю согласие на обработку моих персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» и соглашаюсь с <a href="#" target="_blank">Политикой конфиденциальности</a>.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                </form>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <span class="icon">✅</span>
+                <h3>Заявка отправлена!</h3>
+                <p>Наш менеджер свяжется с вами в ближайшее время для подтверждения бронирования.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипт -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('bookingModal');
+            const openBtns = document.querySelectorAll('.open-modal-btn');
+            const closeBtn = document.getElementById('closeModal');
+            const form = document.getElementById('bookingForm');
+            const formContainer = document.getElementById('formContainer');
+            const successMessage = document.getElementById('successMessage');
+
+            openBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.classList.add('active');
+                    form.reset();
+                    formContainer.style.display = 'block';
+                    successMessage.style.display = 'none';
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                
+                const privacyCheckbox = document.getElementById('privacy');
+                if (!privacyCheckbox.checked) {
+                    alert('Необходимо согласие на обработку персональных данных.');
+                    return;
+                }
+
+                formContainer.style.display = 'none';
+                successMessage.style.display = 'block';
+
+                setTimeout(() => {
+                    modal.classList.remove('active');
+                }, 4000);
+            });
+        });
+    </script>
+</body>
+</html>
